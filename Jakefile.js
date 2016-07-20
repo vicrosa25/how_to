@@ -4,7 +4,7 @@
 (function () {
     "use strict";
 
-    var EXPECTED_NODE_VERSION = "v4.2.6";
+
 
 
     desc('Default Build');
@@ -16,10 +16,14 @@
     task("version", function () {
         console.log("Cheking the node version: .");
 
+        var packageJson = require("./package.json");
+
+        var expectedVersion = 'v' + packageJson.engines.node;
+
         var actualVersion = process.version;
 
-        if (actualVersion !== EXPECTED_NODE_VERSION) {
-            fail("Incorrect node version: Expected " + EXPECTED_NODE_VERSION + " but was " + actualVersion);
+        if (actualVersion !== expectedVersion) {
+            fail("Incorrect node version: Expected " + expectedVersion + " but was " + actualVersion);
         }
 
     });
