@@ -4,6 +4,7 @@
 (function () {
     "use strict";
 
+    var jshint = require("simplebuild-jshint");
 
 
 
@@ -30,10 +31,13 @@
 
     desc("Lint Javascript code");
     task("lint", function () {
-        console.log("Linting Javascript: .");
+        process.stdout.write("Linting Javascript: ");
 
-        //ejecuta comandos en el terminal
-        jake.exec("node node_modules/jshint/bin/jshint Jakefile.js", {interactive: true}, complete);
+        jshint.checkFiles({
+            files: "Jakefile.js",
+            options: {},
+            globals: {}
+        }, complete, fail);
     }, {async: true});
 
 }());
