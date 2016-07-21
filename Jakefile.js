@@ -8,7 +8,7 @@
 
 
     desc('Default Build');
-    task("default", [ "version"],function () {
+    task("default", [ "version", "lint"],function () {
         console.log("\n\nBUILD OK");
     });
 
@@ -27,5 +27,13 @@
         }
 
     });
+
+    desc("Lint Javascript code");
+    task("lint", function () {
+        console.log("Linting Javascript: .");
+
+        //ejecuta comandos en el terminal
+        jake.exec("node node_modules/jshint/bin/jshint Jakefile.js", {interactive: true}, complete);
+    }, {async: true});
 
 }());
