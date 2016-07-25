@@ -1,11 +1,12 @@
 /**
  * Created by victor on 19/07/16.
  */
+/*globals   desc: false, task: false, complete: false, fail: false*/
+
 (function () {
     "use strict";
 
     var jshint = require("simplebuild-jshint");
-
 
 
     desc('Default Build');
@@ -35,7 +36,19 @@
 
         jshint.checkFiles({
             files: "Jakefile.js",
-            options: {},
+            options: {
+                bitwise: true,
+                eqeqeq: true,
+                forin: true,
+                freeze: true,
+                futurehostile: true,
+                latedef: "nofunc",
+                nonew: true,
+                strict: true,
+                undef: true,
+                node: true,
+                browser: true,
+            },
             globals: {}
         }, complete, fail);
     }, {async: true});
