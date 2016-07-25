@@ -1,18 +1,31 @@
 /**
  * Created by victor on 19/07/16.
  */
-/*globals   desc: false, task: false, complete: false, fail: false*/
+/*globals jake:false, desc:false, task:false, complete:false, fail:false*/
 
 (function () {
     "use strict";
 
     var jshint = require("simplebuild-jshint");
 
+    //**** General-purpose task
 
     desc('Default Build');
     task("default", [ "version", "lint"],function () {
         console.log("\n\nBUILD OK");
     });
+
+    desc("Run a localhost");
+    task("run", function () {
+
+        jake.exec("node node_modules/http-server/bin/http-server src", {interactive: true}, complete);
+
+
+        console.log("Run http-server here");
+    }, {async: true});
+
+
+    //**** Supporting tasks
 
     desc("Check the node version");
     task("version", function () {
