@@ -10,6 +10,11 @@
 
     //**** General-purpose task
 
+    desc("Start the karma server (run this first)");
+    task("karma", function () {
+       console.log("Starting karma server:"); 
+    });
+
     desc('Default Build');
     task("default", [ "version", "lint"],function () {
         console.log("\n\nBUILD OK");
