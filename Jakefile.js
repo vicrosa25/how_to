@@ -7,16 +7,23 @@
     "use strict";
 
     var jshint = require("simplebuild-jshint");
+    var karma = require("simplebuild-karma");
+
+
+    var KARMA_CONFIG = "karma.conf.js";
 
     //**** General-purpose task
 
     desc("Start the karma server (run this first)");
     task("karma", function () {
-       console.log("Starting karma server:"); 
-    });
+        console.log("Starting karma server:");
+        karma.start({
+            configFile: KARMA_CONFIG
+        }, complete, fail);
+    }, {async: true});
 
     desc('Default Build');
-    task("default", [ "version", "lint"],function () {
+    task("default", [ "version", "lint", "test"],function () {
         console.log("\n\nBUILD OK");
     });
 
@@ -56,6 +63,14 @@
             options: lintOptions(),
             globals: lintGlobals()
         }, complete, fail);
+    }, {async: true});
+
+    desc("Run tests");
+    task("test", function () {
+       console.log("Testing Javascript:");
+        karma.run({
+            configFile: KARMA_CONFIG
+        }, complete,fail);
     }, {async: true});
 
     function lintOptions() {
