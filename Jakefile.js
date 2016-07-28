@@ -26,7 +26,6 @@
 
 
     //**** Supporting tasks
-
     desc("Check the node version");
     task("version", function () {
         console.log("Cheking the node version: .");
@@ -62,7 +61,15 @@
                 node: true,
                 browser: true,
             },
-            globals: {}
+            globals: {
+                // Mocha
+                describe: false,
+                it: false,
+                before: false,
+                after: false,
+                beforeEach: false,
+                afterEach: false
+            }
         }, complete, fail);
     }, {async: true});
 
