@@ -69,7 +69,12 @@
     task("test", function () {
        console.log("Testing Javascript:");
         karma.run({
-            configFile: KARMA_CONFIG
+            configFile: KARMA_CONFIG,
+            expectedBrowsers: [
+                "Chrome 52.0.2743 (Linux 0.0.0)",
+                "Firefox 47.0.0 (Ubuntu 0.0.0)"
+            ],
+            strict: !process.env.loose
         }, complete,fail);
     }, {async: true});
 
