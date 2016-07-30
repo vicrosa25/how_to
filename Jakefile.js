@@ -33,9 +33,7 @@
     desc("Run a localhost");
     task("run", ["build"], function () {
 
-        jake.exec("node node_modules/http-server/bin/http-server" + DIST_DIR, {interactive: true}, complete);
-
-
+        jake.exec("node node_modules/http-server/bin/http-server " + DIST_DIR, {interactive: true}, complete);
         console.log("Run http-server here");
     }, {async: true});
 
@@ -68,7 +66,7 @@
         process.stdout.write("Linting Javascript: ");
 
         jshint.checkFiles({
-            files: [ "Jakefile.js", "src/**/*.js" ],
+            files: [ "Jakefile.js", "src/javascript/**/*.js" ],
             options: lintOptions(),
             globals: lintGlobals()
         }, complete, fail);
@@ -92,7 +90,12 @@
        console.log("Building distribution directory: .");
 
         shell.rm("-rf", DIST_DIR + "/*");
-        shell.cp("src/index.html", DIST_DIR);
+        shell.cp("src/content/*", DIST_DIR);
+
+        jake.exec("node node_modules/browserify/bin/cmd.js src/javascript/app.js -o " + DIST_DIR + "/bundle.js",
+            {interactive: true},
+            complete
+        );
     });
 
     directory(DIST_DIR);
