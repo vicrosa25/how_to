@@ -1,7 +1,8 @@
 /**
  * Created by victor on 19/07/16.
  */
-/*globals jake:false, desc:false, task:false, complete:false, fail:false*/
+/*globals jake:false, desc:false, task:false, complete:false, fail:false, directory:false*/
+/*globals jake:false, desc:false, task:false, complete:false, fail:false, directory:false*/
 
 (function () {
     "use strict";
@@ -36,6 +37,7 @@
         jake.exec("node node_modules/http-server/bin/http-server " + DIST_DIR, {interactive: true}, complete);
         console.log("Run http-server here");
     }, {async: true});
+
 
     desc("Erase all generated files");
     task("clean", function () {
@@ -96,7 +98,7 @@
             {interactive: true},
             complete
         );
-    });
+    }, {async: true});
 
     directory(DIST_DIR);
 
