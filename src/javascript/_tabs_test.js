@@ -15,6 +15,17 @@
             removeElement(element);
         });
 
+        it("sets a class on a element withoute eraising existing class"), function () {
+            var element = addElement("div");
+            element.setAttribute("class", "existingClass");
+
+            tabs.initialize(element, "newClass");
+
+            assert.equal(getClass(element, "existingClass someClass"));
+
+            removeElement(element);
+        }
+
         function getClass(element) {
             return element.getAttribute("class");
         }
