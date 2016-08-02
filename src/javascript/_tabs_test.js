@@ -8,12 +8,16 @@
     var tabs = require("./tabs.js");
 
     describe("Tabs", function () {
-        it("hides an element", function () {
+        it("sets a class on an element", function () {
             var element = addElement("div");
-            tabs.initialize(element);
-            assert.equal(getDisplayProperty(element), "none");
+            tabs.initialize(element, "someClass");
+            assert.equal(getClass(element), "someClass");
             removeElement(element);
         });
+
+        function getClass(element) {
+            return element.getAttribute("class");
+        }
         
         
         function addElement(tagName) {
@@ -22,11 +26,6 @@
             return element;
         }
 
-        function getDisplayProperty(element) {
-            var styles = getComputedStyle(element);
-            var display = styles.getPropertyValue("display");
-            return display;
-        }
 
         function removeElement(element) {
             element.parentNode.removeChild(element);
