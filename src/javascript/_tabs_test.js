@@ -22,7 +22,7 @@
 
         it("hides multiple elements", function () {
 
-            var tab1 = addElement("div");
+            var tab1 = createTab();
             var defaultTab = addElement("div");
             var tab3 = addElement("div");
 
@@ -84,6 +84,12 @@
 
         function getClasses(element) {
             return element.getAttribute("class");
+        }
+
+        function createTab() {
+            var tab = addElement("div");
+            tab.innerHTML = "tab";
+            return tab;
         }
 
 
