@@ -8,29 +8,88 @@
     var tabs = require("./tabs.js");
 
     describe("Tabs", function () {
-        it("sets a class on an element when element has no existing classes", function () {
-            var element = addElement("div");
-            tabs.initialize(element, "someClass");
-            assert.equal(getClass(element), "someClass");
-            removeElement(element);
+
+        var container;
+
+        beforeEach(function () {
+            container = document.createElement("div");
+            document.body.appendChild(container);
         });
 
-        it("sets a class on a element withoute eraising existing class", function () {
+        afterEach(function () {
+            removeElement(container);
+        });
+
+        it("hides multiple elements", function () {
+
+            var tab1 = addElement("div");
+            var defaultTab = addElement("div");
+            var tab3 = addElement("div");
+
+            var element1 = addElement("div");
+            var defaultElement = addElement("div");
+            var element3 = addElement("div");
+
+            tabs.initialize({
+                tabs: [ tab1, defaultTab, tab3 ],
+                content: [ element1, defaultElement, element3],
+                default: defaultElement,
+                activeTabClass: "activeClass",
+                contentHideClass: "hideClass"
+            });
+
+            // Assert
+            assert.equal(getClasses(element1), "hideClass", "element1 should be hiden");
+            assert.equal(getClasses(defaultElement), "", "element2 is default should not be hiden");
+            assert.equal(getClasses(element3), "hideClass", "element3 should be hiden");
+        });
+
+        it("perserve existing classes when hiding an element", function () {
+            var defaultTab = addElement("div");
+            var hidenTab = addElement("div");
+
+            var defaultElement = addElement("div");
             var element = addElement("div");
             element.setAttribute("class", "existingClass");
-            tabs.initialize(element, "newClass");
-            assert.equal(getClass(element), "existingClass newClass");
-            removeElement(element);
+
+            tabs.initialize({
+                tabs: [ defaultTab, hidenTab],
+                content: [ element ],
+                default: defaultElement,
+                activeTabClass: "activeClass",
+                contentHideClass: "newClass"
+            });
+
+            assert.equal(getClasses(element), "existingClass newClass");
         });
 
-        function getClass(element) {
+        it("styles the active tab with a clas", function () {
+            var defaultTab = addElement("div");
+            var defaultElement = addElement("div");
+
+            tabs.initialize({
+                tabs: [defaultTab],
+                content: [ defaultElement ],
+                default: defaultElement,
+                activeTabClass: "activeClass",
+                contentHideClass: "ignored"
+            });
+
+            assert.equal(getClasses(defaultTab), "activeClass");
+        });
+
+        it("preserves existing class on the active tab", function () {
+            // TODO
+        });
+
+        function getClasses(element) {
             return element.getAttribute("class");
         }
-        
-        
+
+
         function addElement(tagName) {
             var element = document.createElement(tagName);
-            document.body.appendChild(element);
+            container.appendChild(element);
             return element;
         }
 

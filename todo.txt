@@ -1,5 +1,8 @@
-* Mark a tab as active
-* Hide all inactive content divs
-    - Hide one inactive content div.
-    - Hide one content div. ok
-    - Has an API. ok
+
+
+
+* Deal with clicks.
+
+* Mark a tab as active.
+
+* Not hide active content div.
