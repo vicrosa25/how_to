@@ -34,7 +34,7 @@
                 content: [ content1, defaultContent, content3],
                 defaultTab: defaultTab,
                 activeTabClass: IRRELEVANT,
-                contentHideClass: "hideClass"
+                hiddenContentClass: "hideClass"
             });
 
             // Assert
@@ -43,27 +43,12 @@
             assert.equal(getClasses(content3), "hideClass", "element3 should be hiden");
         });
 
-        it("perserve existing classes when hiding an element", function () {
-            var defaultTab = createTab();
-            var defaultContent = createTabContent();
-            var hidenContent = createTabContent();
-            hidenContent.setAttribute("class", "existingClass");
 
-            tabs.initialize({
-                tabs: [ defaultTab, createTab()],
-                content: [ defaultContent, hidenContent ],
-                defaultTab: defaultTab,
-                activeTabClass: IRRELEVANT,
-                contentHideClass: "newClass"
-            });
-
-            assert.equal(getClasses(hidenContent), "existingClass newClass");
-        });
-
-        it.only("styles the active tab with a clas", function () {
+        it.only("styles the active tab with a class", function () {
             var tab1 = createTab();
             var defaultTab = createTab();
             var tab3 = createTab();
+
             var defaultContent = createTabContent();
 
             tabs.initialize({
@@ -71,7 +56,7 @@
                 content: [ createTabContent(), defaultContent, createTabContent() ],
                 defaultTab: defaultTab,
                 activeTabClass: "activeTab",
-                contentHideClass: IRRELEVANT
+                hiddenContentClass: IRRELEVANT
             });
 
             assert.equal(getClasses(tab1), null, "tab1 should not be styled");
@@ -79,9 +64,29 @@
             assert.equal(getClasses(tab3), null, "tab 3 should no be styled");
         });
 
-        it("preserves existing class on the active tab", function () {
-            // TODO
+
+        it("perserve existing classes when adding new classes", function () {
+            var defaultTab = createTab();
+            defaultTab.setAttribute("class", "existingTabClass");
+
+            var defaultContent = createTabContent();
+            var hidenContent = createTabContent();
+            hidenContent.setAttribute("class", "existingContentClass");
+
+            tabs.initialize({
+                tabs: [ defaultTab, createTab()],
+                content: [ defaultContent, hidenContent ],
+                defaultTab: defaultTab,
+                activeTabClass: "activeTab",
+                hiddenContentClass: "hiddenContent"
+            });
+
+            assert.equal(getClasses(defaultTab), "existingTabClass activeTab", "tab should perverve existing" +
+                "clases");
+            assert.equal(getClasses(hidenContent), "existingContentClass hiddenContent", "content should" +
+                "perserve existing classes");
         });
+
 
         function getClasses(element) {
             return element.getAttribute("class");
