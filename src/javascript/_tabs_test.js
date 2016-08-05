@@ -48,7 +48,7 @@
 
             tabs.initialize({
                 tabs: [ createTab(), createTab()],
-                content: [ hidenContent ],
+                content: [ defaultContent, hidenContent ],
                 default: defaultContent,
                 activeTabClass: IRRELEVANT,
                 contentHideClass: "newClass"
@@ -58,18 +58,22 @@
         });
 
         it("styles the active tab with a clas", function () {
+            var tab1 = createTab();
             var defaultTab = createTab();
+            var tab3 = createTab();
             var defaultContent = createTabContent();
 
             tabs.initialize({
-                tabs: [defaultTab],
-                content: [ defaultContent ],
+                tabs: [ tab1, defaultTab, tab3 ],
+                content: [ createTabContent(), defaultContent, createTabContent() ],
                 default: defaultContent,
-                activeTabClass: "activeClass",
+                activeTabClass: "activeTab",
                 contentHideClass: IRRELEVANT
             });
 
-            assert.equal(getClasses(defaultTab), "activeClass");
+            assert.equal(getClasses(tab1), null, "tab1 should not be styled");
+            assert.equal(getClasses(defaultTab), "activeTab", "defaultTab should be styled");
+            assert.equal(getClasses(tab3), null, "tab 3 should no be styled");
         });
 
         it("preserves existing class on the active tab", function () {
