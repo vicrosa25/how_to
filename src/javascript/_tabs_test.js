@@ -23,14 +23,16 @@
 
         it("hides multiple elements", function () {
 
+            var defaultTab = createTab();
+
             var content1 = createTabContent();
             var defaultContent = createTabContent();
             var content3 = createTabContent();
 
             tabs.initialize({
-                tabs: [ createTab(), createTab(), createTab() ],
+                tabs: [ createTab(), defaultTab, createTab() ],
                 content: [ content1, defaultContent, content3],
-                default: defaultContent,
+                default: defaultTab,
                 activeTabClass: IRRELEVANT,
                 contentHideClass: "hideClass"
             });
@@ -42,14 +44,15 @@
         });
 
         it("perserve existing classes when hiding an element", function () {
+            var defaultTab = createTab();
             var defaultContent = createTabContent();
             var hidenContent = createTabContent();
             hidenContent.setAttribute("class", "existingClass");
 
             tabs.initialize({
-                tabs: [ createTab(), createTab()],
+                tabs: [ defaultTab, createTab()],
                 content: [ defaultContent, hidenContent ],
-                default: defaultContent,
+                default: defaultTab,
                 activeTabClass: IRRELEVANT,
                 contentHideClass: "newClass"
             });
@@ -57,7 +60,7 @@
             assert.equal(getClasses(hidenContent), "existingClass newClass");
         });
 
-        it("styles the active tab with a clas", function () {
+        it.only("styles the active tab with a clas", function () {
             var tab1 = createTab();
             var defaultTab = createTab();
             var tab3 = createTab();
@@ -66,7 +69,7 @@
             tabs.initialize({
                 tabs: [ tab1, defaultTab, tab3 ],
                 content: [ createTabContent(), defaultContent, createTabContent() ],
-                default: defaultContent,
+                default: defaultTab,
                 activeTabClass: "activeTab",
                 contentHideClass: IRRELEVANT
             });
