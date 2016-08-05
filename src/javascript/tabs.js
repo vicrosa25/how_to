@@ -20,17 +20,22 @@
         checkOption(activeTabClass, "option.activeTabClass");
         checkOption(hiddenContentClass, "option.hiddenContentClass");
 
+        showTab(defaultTab, tabs, content);
+        
+        
+        function showTab(defaultTab, tabs, content) {
+            var activeIndex = findIndexDefaultContent(tabs, defaultTab);
+            var defaultContent = content[activeIndex];
+
+            content.forEach(function (element) {
+                element.classList.add(hiddenContentClass);
+            });
+
+            defaultContent.classList.remove(hiddenContentClass);
+            defaultTab.classList.add(activeTabClass);
+        }
 
 
-        var activeIndex = findIndexDefaultContent(tabs, defaultTab);
-        var defaultContent = content[activeIndex];
-
-        content.forEach(function (element) {
-            element.classList.add(hiddenContentClass);
-        });
-
-        defaultContent.classList.remove(hiddenContentClass);
-        defaultTab.classList.add(activeTabClass);
     };
 
     function findIndexDefaultContent(contentTabs, defaultContentTab) {
