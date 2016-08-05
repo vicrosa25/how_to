@@ -14,6 +14,8 @@
         var contentHideClass = options.contentHideClass;
         var activeTabClass = options.activeTabClass;
 
+        checkOption(tab, "option.tabs");
+
         if(tabs === undefined) throw new Error("Expected options.tabs");
         if(content === undefined) throw new Error("Expected options.content");
         if(defaultElement === undefined) throw new Error("Expected options.default");
@@ -35,5 +37,9 @@
             if (contentTabs[i] === defaultContentTab) return i;
         }
         throw new Error ("Could not find default in list");
+    }
+    
+    function checkOption(option, name) {
+        if (option === undefined) throw new Error("Expected " + name);
     }
 }());
