@@ -16,19 +16,31 @@
 
         showTab(options.defaultTab, options);
 
+        options.tabs.forEach(function (tabElement) {
+            tabElement.addEventListener("click", function (event) {
+                showTab(event.target, options);
+            });
+        });
+
+
     };
 
     function showTab(tabToShow, options) {
-
         var activeIndex = findIndex(options.tabs, tabToShow);
         var contentToShow = options.content[activeIndex];
 
+        // tabs
+        options.tabs.forEach(function (element) {
+            element.classList.remove(options.activeTabClass);
+        });
+        tabToShow.classList.add(options.activeTabClass);
+
+        // content
         options.content.forEach(function (element) {
             element.classList.add(options.hiddenContentClass);
         });
-
         contentToShow.classList.remove(options.hiddenContentClass);
-        tabToShow.classList.add(options.activeTabClass);
+
     }
 
     function findIndex(contentTabs, defaultContentTab) {
