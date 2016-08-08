@@ -3,6 +3,6 @@
 
 * Deal with clicks.
 
-* Mark a tab as active.
+* Factor out classes in test
 
-* Not hide active content div.
+* Factor out 'hidden/' vs 'not hidden'? and 'activeTab' vs not 'activeTab' assertion?

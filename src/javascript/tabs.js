@@ -8,37 +8,30 @@
     classList.shim();
 
     exports.initialize = function initialize(options) {
-        var tabs = options.tabs;
-        var content = options.content;
-        var defaultTab = options.defaultTab;
-        var activeTabClass = options.activeTabClass;
-        var hiddenContentClass = options.hiddenContentClass;
+        checkOption(options.tabs, "option.tabs");
+        checkOption(options.content, "option.content");
+        checkOption(options.defaultTab, "option.defaultTab");
+        checkOption(options.activeTabClass, "option.activeTabClass");
+        checkOption(options.hiddenContentClass, "option.hiddenContentClass");
 
-        checkOption(tabs, "option.tabs");
-        checkOption(content, "option.content");
-        checkOption(defaultTab, "option.defaultTab");
-        checkOption(activeTabClass, "option.activeTabClass");
-        checkOption(hiddenContentClass, "option.hiddenContentClass");
-
-        showTab(defaultTab, tabs, content);
-        
-        
-        function showTab(defaultTab, tabs, content) {
-            var activeIndex = findIndexDefaultContent(tabs, defaultTab);
-            var defaultContent = content[activeIndex];
-
-            content.forEach(function (element) {
-                element.classList.add(hiddenContentClass);
-            });
-
-            defaultContent.classList.remove(hiddenContentClass);
-            defaultTab.classList.add(activeTabClass);
-        }
-
+        showTab(options.defaultTab, options);
 
     };
 
-    function findIndexDefaultContent(contentTabs, defaultContentTab) {
+    function showTab(tabToShow, options) {
+
+        var activeIndex = findIndex(options.tabs, tabToShow);
+        var contentToShow = options.content[activeIndex];
+
+        options.content.forEach(function (element) {
+            element.classList.add(options.hiddenContentClass);
+        });
+
+        contentToShow.classList.remove(options.hiddenContentClass);
+        tabToShow.classList.add(options.activeTabClass);
+    }
+
+    function findIndex(contentTabs, defaultContentTab) {
         for (var i = 0; i < contentTabs.length; i++){
             if (contentTabs[i] === defaultContentTab) return i;
         }

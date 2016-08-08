@@ -10,6 +10,7 @@
     describe("Tabs", function () {
 
         var IRRELEVANT = "irrelevant";
+        var HIDDEN_CONTENT = "hideClass";
         var container;
 
         beforeEach(function () {
@@ -21,7 +22,7 @@
             removeElement(container);
         });
 
-        it("hides multiple elements", function () {
+        it("use a class to hide all elements except the default upon initialization", function () {
 
             var defaultTab = createTab();
 
@@ -34,17 +35,16 @@
                 content: [ content1, defaultContent, content3],
                 defaultTab: defaultTab,
                 activeTabClass: IRRELEVANT,
-                hiddenContentClass: "hideClass"
+                hiddenContentClass: HIDDEN_CONTENT
             });
 
             // Assert
-            assert.equal(getClasses(content1), "hideClass", "element1 should be hiden");
-            assert.equal(getClasses(defaultContent), "", "element2 is default should not be hiden");
-            assert.equal(getClasses(content3), "hideClass", "element3 should be hiden");
+            assertContentHidden(content1, "element 1");
+            assertContentVisible(defaultContent, "default element");
+            assertContentHidden(content3, "element 3");
         });
 
-
-        it.only("styles the active tab with a class", function () {
+        it("styles the default tab with a class upon initialization", function () {
             var tab1 = createTab();
             var defaultTab = createTab();
             var tab3 = createTab();
@@ -62,6 +62,31 @@
             assert.equal(getClasses(tab1), null, "tab1 should not be styled");
             assert.equal(getClasses(defaultTab), "activeTab", "defaultTab should be styled");
             assert.equal(getClasses(tab3), null, "tab 3 should no be styled");
+        });
+
+        it("switch content when tab is clicked", function () {
+            var tab1 = createTab();
+            var tab2 = createTab();
+            var tab3 = createTab();
+
+            var content1 = createTabContent();
+            var content2 = createTabContent();
+            var content3 = createTabContent();
+
+            tabs.initialize({
+                tabs: [ tab1, tab2, tab3],
+                content: [content1, content2, content3],
+                defaultTab: tab1,
+                activeTabClass: "activeTab",
+                hiddenContentClass: HIDDEN_CONTENT
+            });
+
+            // click tab 2
+            // assert content 2 is visible
+            // assert content 1 is no longer visible
+
+            // assert tab 2 is active
+            // assert tab 1 is no longer active
         });
 
 
@@ -115,6 +140,15 @@
         function removeElement(element) {
             element.parentNode.removeChild(element);
         }
+
+        function assertContentHidden(element, elementName) {
+            assert.equal(getClasses(element), HIDDEN_CONTENT, elementName + " should be hiden");
+        }
+
+        function assertContentVisible(element, elementName) {
+            assert.equal(getClasses(element), "", elementName + " should be visible");
+        }
+
     });
 
 }());
