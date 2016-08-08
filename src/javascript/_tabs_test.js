@@ -59,10 +59,16 @@
                 hiddenContentClass: IRRELEVANT
             });
 
-            assert.equal(getClasses(tab1), null, "tab1 should not be styled");
+            assertTabActive(tab1, "tabName");
+
+
             assert.equal(getClasses(defaultTab), "activeTab", "defaultTab should be styled");
             assert.equal(getClasses(tab3), null, "tab 3 should no be styled");
         });
+
+        function assertTabActive(tab, tabName) {
+            assert.equal(getClasses(tab), null, tabName + " should not be styled");
+        }
 
         it("switch content when tab is clicked", function () {
             var tab1 = createTab();
