@@ -65,14 +65,6 @@
             assertTabInactive(tab3, "tab 3");
         });
 
-        function assertTabInactive(tab, tabName) {
-            assert.equal(getClasses(tab), null, tabName + " should not be styled");
-        }
-
-        function assertTabActive(tab, tabName) {
-            assert.equal(getClasses(tab), ACTIVE_TAB, tabName + " should be active");
-        }
-
         it("switch content when tab is clicked", function () {
             var tab1 = createTab();
             var tab2 = createTab();
@@ -156,6 +148,14 @@
 
         function assertContentVisible(element, elementName) {
             assert.equal(getClasses(element), "", elementName + " should be visible");
+        }
+
+        function assertTabInactive(tab, tabName) {
+            assert.equal(getClasses(tab), null, tabName + " should not be inactive");
+        }
+
+        function assertTabActive(tab, tabName) {
+            assert.equal(getClasses(tab), ACTIVE_TAB, tabName + " should be active");
         }
 
     });
