@@ -2,7 +2,7 @@
  * Created by victor on 19/07/16.
  */
 /*globals jake:false, desc:false, task:false, complete:false, fail:false, directory:false*/
-/*globals jake:false, desc:false, task:false, complete:false, fail:false, directory:false*/
+
 
 (function () {
     "use strict";
